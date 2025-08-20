@@ -6,16 +6,16 @@ spec:
     version: "v1.0.0"
     image: "syedgaian/openfunctions:express"
     imageCredentials:
-        name: default-docker
+        name: push-secret
     build:
         builder: "openfunction/builder-node:latest"
         env:
             FUNC_NAME: "expressApp"
             FUNC_TYPE: "http"
         srcRepo:
-            url: "https://github.com/gaiangroup/runrun-openfunction-repos"
-            sourceSubPath: "express-sample"
-            revision: "express-deploy"
+            url: "https://github.com/syedgaian/openfunction-test"
+            sourceSubPath: "."
+            revision: "main"
     serving:
         triggers:
             http:
