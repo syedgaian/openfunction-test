@@ -1,0 +1,31 @@
+apiVersion: core.openfunction.io/v1beta2
+kind: Function
+metadata:
+    name: express-function
+spec:
+    version: "v1.0.0"
+    image: "syedgaian/openfunctions:express"
+    imageCredentials:
+        name: default-docker
+    build:
+        builder: "openfunction/builder-node:latest"
+        env:
+            FUNC_NAME: "expressApp"
+            FUNC_TYPE: "http"
+        srcRepo:
+            url: "https://github.com/gaiangroup/runrun-openfunction-repos"
+            sourceSubPath: "express-sample"
+            revision: "express-deploy"
+    serving:
+        triggers:
+            http:
+                port: 8080
+        template:
+            containers:
+                - name: function
+                  imagePullPolicy: IfNotPresent
+        scaleOptions:
+            minReplicas: 0
+            maxReplicas: 5
+            knative:
+                autoscaling.knative.dev/target: "10"
