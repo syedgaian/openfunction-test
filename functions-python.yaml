@@ -1,0 +1,28 @@
+apiVersion: core.openfunction.io/v1beta2
+kind: Function
+metadata:
+    name: python-sample
+spec:
+    version: "v1.0.0"
+    image: "syedgaian/openfunctions:python"
+    imageCredentials:
+        name: push-secret
+    build:
+        builder: "openfunction/gcp-builder:v1"
+        env:
+            GOOGLE_FUNCTION_TARGET: "hello_world"
+            GOOGLE_FUNCTION_SIGNATURE_TYPE: "http"
+            GOOGLE_FUNCTION_SOURCE: "main.py"
+        srcRepo:
+            url: "https://github.com/OpenFunction/samples.git"
+            sourceSubPath: "functions/knative/hello-world-python"
+            revision: "main"
+    serving:
+        runtime: knative # default to knative
+        template:
+            containers:
+                - name: function # DO NOT change this
+                  imagePullPolicy: IfNotPresent
+        triggers:
+            http:
+                port: 8080
