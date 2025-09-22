@@ -9,8 +9,8 @@ async def root():
     """Root endpoint"""
     return {"message": "FastAPI Timeout Application is running!"}
 
-@app.get("/timeout/{seconds}")
-async def timeout_endpoint(seconds: int):
+@app.post("/")
+async def timeout_endpoint(req : dict[str, int]):
     """
     Endpoint that waits for the specified number of seconds before responding
     
@@ -20,6 +20,7 @@ async def timeout_endpoint(seconds: int):
     Returns:
         JSON response with success message and timing info
     """
+    seconds = req.get("seconds", 1)
     # Validate input
     if seconds < 1:
         raise HTTPException(status_code=400, detail="Timeout must be at least 1 second")
