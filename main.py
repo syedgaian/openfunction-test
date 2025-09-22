@@ -47,6 +47,23 @@ async def health_check():
     """Health check endpoint"""
     return {"status": "healthy", "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")}
 
-def hello_world():
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8080)
+from starlette.testclient import TestClient
+
+client = TestClient(app)  # allows forwarding requests
+
+def hello_world(request):
+    """
+    Forward the request to the FastAPI app.
+    This works in environments like Cloud Functions / App Engine.
+    """
+    # Convert incoming request to something FastAPI understands
+    path = request.path
+    method = request.method
+    headers = dict(request.headers)
+    body = request.get_data()
+
+    # Forward to FastAPI using TestClient
+    response = client.request(method, path, headers=headers, data=body)
+
+    # Return a Flask-style response
+    return (response.content, response.status_code, response.headers.items())
