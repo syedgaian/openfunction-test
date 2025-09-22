@@ -14,11 +14,10 @@ spec:
             GOOGLE_FUNCTION_SIGNATURE_TYPE: "http"
             GOOGLE_FUNCTION_SOURCE: "main.py"
         srcRepo:
-            url: "https://github.com/OpenFunction/samples.git"
-            sourceSubPath: "functions/knative/hello-world-python"
-            revision: "main"
+            url: "https://github.com/syedgaian/openfunction-test.git"
+            sourceSubPath: "."
+            revision: "python"
     serving:
-        runtime: knative # default to knative
         template:
             containers:
                 - name: function # DO NOT change this

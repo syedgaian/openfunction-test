@@ -47,6 +47,6 @@ async def health_check():
     """Health check endpoint"""
     return {"status": "healthy", "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")}
 
-if __name__ == "__main__":
+def hello_world():
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8080)
