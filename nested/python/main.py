@@ -1,8 +1,9 @@
 import functions_framework
 import json
+from flask import Request
 
 @functions_framework.http
-def hello_world(request):
+def hello_world(request : Request):
     """OpenFunction HTTP handler function"""
     try:
         if request.method == 'GET':
