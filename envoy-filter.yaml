@@ -1,0 +1,24 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+    name: contour-timeout-override
+    namespace: projectcontour
+spec:
+    workloadSelector:
+        labels:
+            app.kubernetes.io/component: envoy
+            app.kubernetes.io/instance: openfunction
+    configPatches:
+        - applyTo: HTTP_ROUTE
+          match:
+              context: GATEWAY
+              routeConfiguration:
+                  vhost:
+                      name: python-sample.default.svc.cluster.local
+          patch:
+              operation: MERGE
+              value:
+                  typed_per_filter_config:
+                      envoy.filters.http.router:
+                          "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
+                          downstream_idle_timeout: 600s

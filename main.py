@@ -24,8 +24,6 @@ async def timeout_endpoint(req : dict[str, int]):
     # Validate input
     if seconds < 1:
         raise HTTPException(status_code=400, detail="Timeout must be at least 1 second")
-    if seconds > 60:
-        raise HTTPException(status_code=400, detail="Timeout cannot exceed 60 seconds")
     
     start_time = time.time()
     

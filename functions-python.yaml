@@ -1,12 +1,12 @@
 apiVersion: core.openfunction.io/v1beta2
 kind: Function
 metadata:
-    name: python-sample
+    name: python-sample2
 spec:
     version: "v1.0.0"
     image: "syedgaian/openfunctions:python"
     imageCredentials:
-        name: push-secret
+        name: registry-credentials
     build:
         builder: "openfunction/gcp-builder:v1"
         env:
@@ -20,8 +20,12 @@ spec:
     serving:
         template:
             containers:
-                - name: function # DO NOT change this
+                - name: function
                   imagePullPolicy: IfNotPresent
         triggers:
             http:
                 port: 8080
+                route:
+                    gatewayRef:
+                        name: custom-gateway-istio
+                        namespace: openfunction
