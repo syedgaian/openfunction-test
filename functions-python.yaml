@@ -23,6 +23,8 @@ spec:
             url: "https://github.com/syedgaian/openfunction-test.git"
             sourceSubPath: "."
             revision: "python"
+            credentials:
+                name: "git-repo-secret"
     serving:
         template:
             containers:
