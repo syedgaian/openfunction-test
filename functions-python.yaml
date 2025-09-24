@@ -1,7 +1,13 @@
 apiVersion: core.openfunction.io/v1beta2
 kind: Function
 metadata:
-    name: python-sample2
+    name: testing-revision
+    annotations:
+        openfunction.io/revision-controller: enable
+        openfunction.io/revision-controller-params: |
+        type: source
+        repo-type: github
+        polling-interval: 1m
 spec:
     version: "v1.0.0"
     image: "syedgaian/openfunctions:python"
@@ -27,5 +33,5 @@ spec:
                 port: 8080
                 route:
                     gatewayRef:
-                        name: custom-gateway-istio
+                        name: custom-gateway
                         namespace: openfunction

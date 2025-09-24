@@ -46,6 +46,11 @@ async def health_check():
     """Health check endpoint"""
     return {"status": "healthy", "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")}
 
+@app.get("/random")
+async def health_check():
+    """Health check endpoint"""
+    return {"status": "healthy", "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")}
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8080)
